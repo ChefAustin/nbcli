@@ -12,7 +12,7 @@
       
       
       <link rel="icon" href="../images/nbcli.svg">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.2">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.6">
     
     
       
@@ -20,10 +20,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6f955dcd.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.875de78c.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ef6f36e2.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.f1a3b89f.min.css">
         
       
     
@@ -596,26 +596,6 @@
     Install nbcli
   </a>
   
-    <nav class="md-nav" aria-label="Install nbcli">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#from-pypi" class="md-nav__link">
-    From Pypi
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#from-source" class="md-nav__link">
-    From source
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -643,6 +623,13 @@
           <li class="md-nav__item">
   <a href="#clone-netbox-docker-repo" class="md-nav__link">
     Clone netbox-docker repo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-sample-objects-for-netbox-docker" class="md-nav__link">
+    Create sample objects for netbox-docker
   </a>
   
 </li>
@@ -691,40 +678,53 @@
 <p>Instructions should work on Mac and Linux.<br />
 Instructions require python &gt;= 3.6, git, and docker-compose to be installed.</p>
 <h2 id="clone-nbcli-repo">Clone nbcli repo</h2>
-<div class="highlight"><pre><span></span><code>$ git clone https://github.com/ericgeldmacher/nbcli.git
-$ cd nbcli
+<div class="highlight"><pre><span></span><code>git clone https://github.com/ericgeldmacher/nbcli.git <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    <span class="nb">cd</span> nbcli
 </code></pre></div>
 <h2 id="set-up-a-virtual-environment">Set up a virtual environment</h2>
 <div class="admonition info">
 <p class="admonition-title">Optional</p>
 </div>
-<div class="highlight"><pre><span></span><code>$ python3 -m venv venv
-$ source venv/bin/activate
+<div class="highlight"><pre><span></span><code>python3 -m venv venv <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    <span class="nb">source</span> venv/bin/activate
 </code></pre></div>
 <h2 id="install-nbcli">Install nbcli</h2>
-<h3 id="from-pypi">From Pypi</h3>
-<div class="highlight"><pre><span></span><code>$ pip install nbcli
+<ul>
+<li>
+<p>From Pypi</p>
+<div class="highlight"><pre><span></span><code>pip3 install nbcli
 </code></pre></div>
-<h3 id="from-source">From source</h3>
-<div class="highlight"><pre><span></span><code>$ pip install -e .
+</li>
+<li>
+<p>From source</p>
+<div class="highlight"><pre><span></span><code>pip3 install -e .
 </code></pre></div>
+</li>
+</ul>
 <h2 id="set-an-alternate-nbcli-directory">Set an alternate nbcli directory</h2>
 <div class="admonition info">
 <p class="admonition-title">Optional</p>
 </div>
-<div class="highlight"><pre><span></span><code>$ export NBCLI_DIR=$(pwd)/.nbcli_testing
+<div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">NBCLI_DIR</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/.nbcli_testing
 </code></pre></div>
 <h2 id="initialize-nbcli">Initialize nbcli</h2>
 <div class="admonition info">
 <p class="admonition-title">The default values in user_config.yml should work</p>
 </div>
-<div class="highlight"><pre><span></span><code>$ nbcli init
+<div class="highlight"><pre><span></span><code>nbcli init
 </code></pre></div>
 <h2 id="create-test-server">Create test server</h2>
 <h3 id="clone-netbox-docker-repo">Clone netbox-docker repo</h3>
 <p>and copy needed files into netbox-docker directory</p>
-<div class="highlight"><pre><span></span><code>$ git clone https://github.com/netbox-community/netbox-docker.git
-$ cp -r tests/dev-env-files/* netbox-docker/
+<div class="highlight"><pre><span></span><code>git clone https://github.com/netbox-community/netbox-docker.git <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    cp -r tests/dev-env-files/* netbox-docker/ <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    <span class="nb">cd</span> netbox-docker
+</code></pre></div>
+<h3 id="create-sample-objects-for-netbox-docker">Create sample objects for netbox-docker</h3>
+<div class="admonition info">
+<p class="admonition-title">Optional</p>
+</div>
+<div class="highlight"><pre><span></span><code>python3 create_initializers.py
 </code></pre></div>
 <h3 id="start-test-netbox-service">Start test Netbox service</h3>
 <p>and wait for service to be ready</p>
@@ -732,18 +732,17 @@ $ cp -r tests/dev-env-files/* netbox-docker/
 <p class="admonition-title">service usually take ~1 min to come up</p>
 <p><code>wait_for_service.py</code> will time out after 5 min</p>
 </div>
-<div class="highlight"><pre><span></span><code>$ cd netbox-docker
-$ docker-compose pull
-$ docker-compose up -d
-$ python3 wait_for_service.py
+<div class="highlight"><pre><span></span><code>docker-compose pull <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    docker-compose up -d <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    python3 wait_for_service.py
 </code></pre></div>
 <div class="admonition done">
 <p class="admonition-title">The test Netbox instance should now be ready for testing!</p>
 </div>
 <h2 id="after-testing">After testing</h2>
 <p>Bring down test Netbox service and deactivate virtual environment.</p>
-<div class="highlight"><pre><span></span><code>$ docker-compose down -v
-$ deactivate
+<div class="highlight"><pre><span></span><code>docker-compose down -v <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    deactivate
 </code></pre></div>
                 
               
@@ -756,7 +755,7 @@ $ deactivate
           </div>
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
           </a>
         
@@ -803,10 +802,10 @@ $ deactivate
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "toc.integrate"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.fe42c31b.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "toc.integrate"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.d351de03.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.4ea5477f.min.js"></script>
+      <script src="../assets/javascripts/bundle.34eae1b6.min.js"></script>
       
     
   </body>
