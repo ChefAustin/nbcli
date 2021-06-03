@@ -16,7 +16,7 @@
     
     
       
-        <title>Command - nbcli: NetBox Command-Line Client</title>
+        <title>models - nbcli: NetBox Command-Line Client</title>
       
     
     
@@ -60,11 +60,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#custom-commands" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -101,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Command
+              models
             
           </span>
         </div>
@@ -193,13 +188,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../../commands/init/" class="md-tabs__link">
+      <a href="../init/" class="md-tabs__link md-tabs__link--active">
         Commands
       </a>
     </li>
@@ -209,15 +206,13 @@
         
   
   
-    
-  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../views/" class="md-tabs__link md-tabs__link--active">
+      <a href="../../extend/views/" class="md-tabs__link">
         Extend
       </a>
     </li>
@@ -333,12 +328,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
       <label class="md-nav__link" for="__nav_3">
         Commands
@@ -356,7 +353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/init/" class="md-nav__link">
+      <a href="../init/" class="md-nav__link">
         init
       </a>
     </li>
@@ -366,11 +363,19 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../commands/models/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         models
       </a>
+      
     </li>
   
 
@@ -380,7 +385,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/search/" class="md-nav__link">
+      <a href="../search/" class="md-nav__link">
         search
       </a>
     </li>
@@ -392,7 +397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/filter/" class="md-nav__link">
+      <a href="../filter/" class="md-nav__link">
         filter
       </a>
     </li>
@@ -404,7 +409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/create/" class="md-nav__link">
+      <a href="../create/" class="md-nav__link">
         create
       </a>
     </li>
@@ -416,7 +421,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/shell/" class="md-nav__link">
+      <a href="../shell/" class="md-nav__link">
         shell
       </a>
     </li>
@@ -435,14 +440,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
       <label class="md-nav__link" for="__nav_4">
         Extend
@@ -460,7 +463,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../views/" class="md-nav__link">
+      <a href="../../extend/views/" class="md-nav__link">
         Views
       </a>
     </li>
@@ -470,51 +473,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Command
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../extend/commands/" class="md-nav__link">
         Command
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#example-custom-command" class="md-nav__link">
-    Example custom command
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -619,85 +582,9 @@
               
                 
                 
-                <h1 id="custom-commands">Custom Commands</h1>
-<h2 id="example-custom-command">Example custom command</h2>
-<div class="highlight"><pre><span></span><code><span class="c1"># For a user defined subcommand to be loaded into nbcli</span>
-<span class="c1"># it must be a subclass of BaseSubCommand, found in nbcli.commands.base</span>
-
-<span class="kn">from</span> <span class="nn">nbcli.commands.base</span> <span class="kn">import</span> <span class="n">BaseSubCommand</span>
-
-<span class="k">class</span> <span class="nc">ExampleSubCommand</span><span class="p">(</span><span class="n">BaseSubCommand</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This docstring will automatically be used as the command description.</span>
-
-<span class="sd">    You can override this behavior by setting a description</span>
-<span class="sd">    in the parser_kwargs dict.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># name is required</span>
-
-    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
-
-    <span class="c1"># parser_kwargs is optional </span>
-    <span class="c1"># It shoud be a dict containing values you with to pass to</span>
-    <span class="c1"># the ArgumentParser for the command.</span>
-    <span class="c1"># (see https://docs.python.org/3/library/argparse.html)</span>
-    <span class="c1"># the value for &#39;help&#39; will be displayed next to the command</span>
-    <span class="c1"># when &#39;nbcli -h&#39; is run</span>
-
-    <span class="n">parser_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s1">&#39;Say hello&#39;</span><span class="p">,</span>
-                         <span class="c1">#description=None,</span>
-                         <span class="c1">#epilog=None,</span>
-                         <span class="p">)</span>
-
-    <span class="c1"># view_options is optional.</span>
-    <span class="c1"># If True it will add --view, --view-model, --cols, and --nh arguments</span>
-    <span class="c1"># to the command ArgumentParser and add a pre-configured nbprint() method</span>
-    <span class="c1"># available in run()</span>
-
-    <span class="n">view_options</span> <span class="o">=</span> <span class="kc">False</span>
-
-    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-        <span class="c1"># Any additional argument that need to be added to the command</span>
-        <span class="c1"># ArgumentParser should be added here.</span>
-        <span class="c1"># (see https://docs.python.org/3/library/argparse.html)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--name&#39;</span><span class="p">,</span>
-                                 <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                                 <span class="n">default</span><span class="o">=</span><span class="s1">&#39;World&#39;</span><span class="p">,</span>
-                                 <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Who are you saying hello to?&#39;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;This docstring will automatically be used as the command epilog.</span>
-
-<span class="sd">        You can override this behavior by setting an epilog</span>
-<span class="sd">        in the parser_kwargs dict.</span>
-
-<span class="sd">        Usage Examples:</span>
-
-<span class="sd">        - Say hello to the world</span>
-<span class="sd">          $ nbcli hello</span>
-
-<span class="sd">        - Say hello to John</span>
-<span class="sd">          $ nbcli hello --name John</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="c1"># self.netbox is the pre-configured root pynetbox api object</span>
-        <span class="c1"># to be used to interact with the NetBox REST API</span>
-        <span class="c1"># (see https://pynetbox.readthedocs.io/en/latest/)</span>
-
-        <span class="c1"># self.args is the parsed arguments for the command</span>
-        <span class="c1"># (see https://docs.python.org/3/library/argparse.html)</span>
-
-        <span class="c1"># self.logger is a logger with a pre-set name/loglevel</span>
-        <span class="c1"># set from parsed arguments</span>
-        <span class="c1"># (see https://docs.python.org/3/library/logging.html)</span>
-
-        <span class="c1"># self.nbprint will be added if view_options is set to True</span>
-        <span class="c1"># otherwise it can be imported from nbcli.views.tools</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello, </span><span class="si">{}</span><span class="s1">!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
-</code></pre></div>
+                  <h1>models</h1>
+                
+                
                 
               
               
@@ -720,7 +607,7 @@
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
-        <a href="../views/" class="md-footer__link md-footer__link--prev" rel="prev">
+        <a href="../init/" class="md-footer__link md-footer__link--prev" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -729,19 +616,19 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Views
+              init
             </div>
           </div>
         </a>
       
       
-        <a href="../../reference/envars/" class="md-footer__link md-footer__link--next" rel="next">
+        <a href="../search/" class="md-footer__link md-footer__link--next" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Environment Variables
+              search
             </div>
           </div>
           <div class="md-footer__button md-icon">

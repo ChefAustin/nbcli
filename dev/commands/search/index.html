@@ -368,6 +368,18 @@
             
   
   
+  
+    <li class="md-nav__item">
+      <a href="../models/" class="md-nav__link">
+        models
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
     
   
   
@@ -579,15 +591,15 @@
                 
                 <h1 id="nbcli-search">nbcli search</h1>
 <div class="highlight"><pre><span></span><code>$ nbcli search -h
-usage: nbcli search [-h] [-v] [-q] [app_model] searchterm
+usage: nbcli search [-h] [-v] [-q] [obj_type] searchterm
 
 Search Netbox objects with the given searchterm.
 
-The List of search models can be modified in:
-$HOME/$CONF_DIR/config.yml
+The List of search objects can be modified in:
+$CONF_DIR/user_config.yml
 
 positional arguments:
-  app_model      Model location to search (app.model)
+  obj_type       Object type to search
   searchterm     Search term
 
 optional arguments:
@@ -599,12 +611,66 @@ Run a search of Netbox objects and show a table view of results.
 
 Usage Examples:
 
-- Search all search modelss for &#39;server1&#39;:
+- Search all object types for &#39;server1&#39;:
   $ nbcli search server1
 
-- Search the dcim.interfaces model for &#39;eth 1&#39;:
-  $ nbcli search dcim.interfaces &#39;eth 1&#39;
+- Search the interface object type for &#39;eth 1&#39;:
+  $ nbcli search interface &#39;eth 1&#39;
 </code></pre></div>
+<p>The <code>search</code> command is designed to emulate the main search bar that can be found
+at the top of the home page of the Netbox web interface.</p>
+<p>By default it will search through a predefined list of object types and return
+up to 15 results for each object type. If more then 15 results are found, it
+will display the filter command to show all the results.</p>
+<p>If your search term needs to contain a space, make sure to wrap it in quotes.</p>
+<div class="highlight"><pre><span></span><code>nbcli search &#39;web server&#39;
+</code></pre></div>
+<p>If you only want to search one object type you can specify if before the search
+term. <code>nbcli search [obj_type] searchterm</code>.</p>
+<ul>
+<li>
+<p>Searching all object types for <code>server1</code>:</p>
+<div class="highlight"><pre><span></span><code>nbcli search server1
+</code></pre></div>
+</li>
+<li>
+<p>Searching only devices for <code>server1</code>:</p>
+<div class="highlight"><pre><span></span><code>nbcli search device server1
+</code></pre></div>
+</li>
+</ul>
+<p>The list of predefined object types that will be searched can be modified by
+editing the <a href="../init/#config-file">user_config.yml</a> file.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">nbcli</span><span class="p">:</span>
+<span class="c1">#  search_objects:</span>
+<span class="c1">#    - provider</span>
+<span class="c1">#    - circuit</span>
+<span class="c1">#    - site</span>
+<span class="c1">#    - rack</span>
+<span class="c1">#    - location</span>
+<span class="c1">#    - device_type</span>
+<span class="c1">#    - device</span>
+<span class="c1">#    - virtual_chassis</span>
+<span class="c1">#    - cable</span>
+<span class="c1">#    - power_feed</span>
+<span class="c1">#    - vrf</span>
+<span class="c1">#    - aggregate</span>
+<span class="c1">#    - prefix</span>
+<span class="c1">#    - address</span>
+<span class="c1">#    - vlan</span>
+<span class="c1">#    - secret</span>
+<span class="c1">#    - tenant</span>
+<span class="c1">#    - cluster</span>
+<span class="c1">#    - virtual_machine</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p><code>nbcli search</code> relies on the <code>q</code> perameter being available for the GET
+method on the REST API endpoint. Make sure any object added to the
+<code>search_objects</code> list has the <code>q</code> perameter available for the GET method.</p>
+<p>Your Netbox instance API docs should be available at 
+https://your.netbox.url/api/docs</p>
+</div>
                 
               
               
@@ -627,7 +693,7 @@ Usage Examples:
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
-        <a href="../init/" class="md-footer__link md-footer__link--prev" rel="prev">
+        <a href="../models/" class="md-footer__link md-footer__link--prev" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -636,7 +702,7 @@ Usage Examples:
               <span class="md-footer__direction">
                 Previous
               </span>
-              init
+              models
             </div>
           </div>
         </a>

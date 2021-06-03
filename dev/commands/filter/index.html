@@ -370,6 +370,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../models/" class="md-nav__link">
+        models
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../search/" class="md-nav__link">
         search
       </a>
@@ -391,9 +403,135 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          filter
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         filter
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    Basic usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keyword-arguments" class="md-nav__link">
+    Keyword arguments
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auto-resolve-arguments-wip" class="md-nav__link">
+    Auto-resolve arguments [WIP]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compound-resolve-arguments-wip" class="md-nav__link">
+    Compound-resolve arguments [WIP]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-results" class="md-nav__link">
+    Modifying results
+  </a>
+  
+    <nav class="md-nav" aria-label="Modifying results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updating" class="md-nav__link">
+    Updating
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deleting" class="md-nav__link">
+    Deleting
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detail-endpoint" class="md-nav__link">
+    Detail Endpoint
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#controlling-output" class="md-nav__link">
+    Controlling output
+  </a>
+  
+    <nav class="md-nav" aria-label="Controlling output">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-view" class="md-nav__link">
+    --view
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-view-model" class="md-nav__link">
+    ---view-model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-cols" class="md-nav__link">
+    --cols
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-nh-no-header" class="md-nav__link">
+    --nh, --no-header
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -580,10 +718,14 @@
                 <h1 id="nbcli-filter">nbcli filter</h1>
 <div class="highlight"><pre><span></span><code>$ nbcli filter -h
 usage: nbcli filter [-h] [-v] [-q] [--view {table,detail,json}]
-                    [--view-model VIEW_MODEL] [--cols [COLS [COLS ...]]]
-                    [--nh] [-g] [-c | -D | -u UD-ARGS [UD-ARGS ...]]
-                    [--de DE-ARGS [DE-ARGS ...]]
+                    [--view-model VIEW_MODEL] [--cols [COLS [COLS ...]]] [--nh]
+                    [-c | -D | --ud [UD [UD ...]]] [--de [DE [DE ...]]]
                     model [args [args ...]]
+
+Filter Netbox objects by searchterm and object properties.
+
+Optionally update and delete objects returned by the filter.
+Control output view and listed columns.
 
 positional arguments:
   model                 NetBox model
@@ -598,16 +740,234 @@ optional arguments:
   --view-model VIEW_MODEL
                         View model to use
   --cols [COLS [COLS ...]]
-                        Custome columns for table output.
+                        Custom columns for table output.
   --nh, --no-header     Disable header row in results
-  -g, --get             Get single result. Raise error if more are returned
   -c, --count           Return the count of objects in filter.
-  -D, --delete          Delete Object(s) retrieved by get method
-  -u UD-ARGS [UD-ARGS ...], --update UD-ARGS [UD-ARGS ...]
-                        Update object(s) with given kwargs
-  --de DE-ARGS [DE-ARGS ...], --detail-endpoint DE-ARGS [DE-ARGS ...]
-                        List results from detail endpoint With optional kwargs
+  -D, --delete          Delete Object(s) returned by filter [WIP]
+  --ud [UD [UD ...]], --update [UD [UD ...]]
+                        Update object(s) returned by filter with given kwargs [WIP]
+  --de [DE [DE ...]], --detail-endpoint [DE [DE ...]]
+                        List results from detail endpoint With optional kwargs [WIP]
+
+Filter Netbox objects by a searchterm and object properties.
+
+Usage Examples:
+
+- Filter IP Addresses with searchterm &#39;192.168.1.1&#39;:
+  $ nbcli filter address 192.168.1.1
+
+- Filter devices by serial number using keyword arguments:
+  $ nbcli filter device serial=123456
+
+- Filter devices types by manufacturer using auto-resolve arguments:
+  $ nbcli filter device_type manufacturer:ACME
+
+- Update tenant on devices returned by filter:
+  $ nbcli filter device name=server1 -ud tenant:tenant2
+
+- Delete IP addresses returned by filter:
+  $ nbcli filter address 192.168.1.1 -D
 </code></pre></div>
+<p>The <code>filter</code> command is designed to emulate the "list view" of the Netbox web
+interface. Results can be refined with a search term, keyword,
+"auto-resolve", and "compound-resolve" arguments.</p>
+<p>Objects returned by the filter can optionally updated or deleted.</p>
+<h2 id="basic-usage">Basic usage</h2>
+<p>The simplest way to use the <code>filter</code> command is just to pass a search term.
+Any argument not containing an <code>=</code> or <code>:</code> will be considered a search term
+argument.</p>
+<div class="highlight"><pre><span></span><code>nbcli filter device webserver
+</code></pre></div>
+<p>Multiple search terms can be passed to the <code>filter</code> command, but only the first
+will be used. If your search term needs to contain a space, make sure to wrap
+it in quotes.</p>
+<div class="highlight"><pre><span></span><code>nbcli filter device &#39;web server&#39;
+</code></pre></div>
+<p>Search term arguments can be mixed and matched with any combination of keyword,
+auto-resolve, and compound-resolve arguments to refine your filter.</p>
+<h2 id="keyword-arguments">Keyword arguments</h2>
+<p>Any argument containing an <code>=</code> will be considered a keyword argument in the
+form of <code>key=value</code>. </p>
+<div class="highlight"><pre><span></span><code>nbcli filter device serial=123456
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Keyword arguments are passed to the given REST API endpoint via
+<a href="https://pynetbox.readthedocs.io/en/latest/endpoint.html#pynetbox.core.endpoint.Endpoint.filter">pynetbox</a>
+so a familiarity with the Netbox's REST API will help.<br />
+You can find your Netbox instances API docs at https://your.netbox.url/api/docs<br />
+You may also want to have a look at 
+<a href="https://netbox.readthedocs.io/en/stable/rest-api/filtering/">Netbox's Documentation</a>
+on REST API Filtering</p>
+</div>
+<p>Multiple keyword arguments can be passed to the <code>filter</code> command and all will
+be used to refine the filter.</p>
+<div class="highlight"><pre><span></span><code>nbcli filter address parent=192.168.1.0/24 status=reserved
+</code></pre></div>
+<p>Some keyword arguments can be "stacked" where multiple values can be passed for
+the same key. (This only applies if it is supported by the given parameter of
+the REST API endpoint.)</p>
+<div class="highlight"><pre><span></span><code>nbcli filter address status=dhcp status=reserved
+</code></pre></div>
+<h2 id="auto-resolve-arguments-wip">Auto-resolve arguments [WIP]</h2>
+<p>Any argument containing a <code>:</code> will be considered an auto-resolve argument in
+the form of <code>object:name</code>.</p>
+<p>The following will list all devices in rack 1.1</p>
+<div class="highlight"><pre><span></span><code>nbcli filter device rack:1.1
+</code></pre></div>
+<p>These can also be combined to refine the filter.</p>
+<div class="highlight"><pre><span></span><code>nbcli filter device rack:1.1 device_type:R840
+</code></pre></div>
+<p>And stacked to include more results</p>
+<div class="highlight"><pre><span></span><code>nbcli filter device rack:1.1 rack:1.2
+nbcli filter device rack:1.1:1.2
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Behind the sceans, auto-resolve arguments are essantally running another
+<code>filter</code> command and passing the <code>id</code> values of the results as to the main
+<code>filter</code> command.<br />
+So <code>nbcli filter device rack:1.1</code> is running:
+<div class="highlight"><pre><span></span><code>nbcli filter rack name=1.1
+</code></pre></div>
+and then modifying the origenal <code>filter</code> command to be:
+<div class="highlight"><pre><span></span><code>nbcli filter device rack_id=1
+</code></pre></div>
+For most object types, the  value after the <code>:</code>, is applyed to the key <code>name</code>.<br />
+You can override this behavior by inserting a keyword argument after the <code>:</code><br />
+The following command should return all devices in racks with the status <code>reserved</code>:
+<div class="highlight"><pre><span></span><code>nbcli filter device rack:status=reserved
+</code></pre></div></p>
+</div>
+<h2 id="compound-resolve-arguments-wip">Compound-resolve arguments [WIP]</h2>
+<p>Any argument containing a <code>::</code> will be considered a compound-resolve argument
+in the form of <code>object::object:name</code>.</p>
+<p>Compound-resolve arguments take the concept of auto-resolve further, by allowing
+you to apply an auto-resolve to an auto-resolve. This allows you to put more
+precise constraints on your auto-resolve arguments.</p>
+<p>For instance you can list interfaces matching the search term 'eth' only on
+devices in rack 1.1.</p>
+<div class="highlight"><pre><span></span><code>nbcli filter interface eth device::rack:1.1
+</code></pre></div>
+<h2 id="modifying-results">Modifying results</h2>
+<p>Results from the filter can be updated or deleted. You will always be prompted
+to confirm when updating or deleting.</p>
+<h3 id="updating">Updating</h3>
+<p>Update objects returned by filter.
+Values can be updated with keyword arguments and/or auto-resolve arguments.</p>
+<div class="highlight"><pre><span></span><code>$ nbcli filter rack tenant:ENCOM --ud status=reserved &#39;site:NY DC-1&#39;
+Update Racks with {&#39;status&#39;: &#39;reserved&#39;, &#39;site&#39;: 2}?
+* 1.1 (1)
+* 1.2 (2)
+(yes) to update: yes
+1.1 (1) Updated!
+1.2 (2) Updated!
+</code></pre></div>
+<h3 id="deleting">Deleting</h3>
+<p>Delete objects returned by filter.</p>
+<div class="highlight"><pre><span></span><code>$ nbcli filter device db -D
+Delete Devices?
+* db-1 (5)
+* db-2 (6)
+(yes) to delete: yes
+db-1 (5) Deleted!
+db-2 (6) Deleted!
+</code></pre></div>
+<h2 id="detail-endpoint">Detail Endpoint</h2>
+<p>pynetbox <a href="https://pynetbox.readthedocs.io/en/latest/endpoint.html#pynetbox.core.endpoint.DetailEndpoint">DetailEndpoint</a>
+objects can be access with the <code>--de</code> flag.</p>
+<div class="highlight"><pre><span></span><code>nbcli filter prefix 192.168.1.0/24 --de available_ips
+</code></pre></div>
+<h2 id="controlling-output">Controlling output</h2>
+<p>The following optional arguments can change how the results of the filter
+command are displayed.</p>
+<div class="highlight"><pre><span></span><code>  --view {table,detail,json}
+                        Output view.
+  --view-model VIEW_MODEL
+                        View model to use
+  --cols [COLS [COLS ...]]
+                        Custom columns for table output.
+  --nh, --no-header     Disable header row in results
+</code></pre></div>
+<h3 id="-view">--view</h3>
+<ul>
+<li>
+<p>table  </p>
+<p>Displays results in a tabular format. (default)</p>
+</li>
+<li>
+<p>detail  </p>
+<p>Display more detailed info for results.
+(Poorly implemented, will likely be removed.)</p>
+</li>
+<li>
+<p>json  </p>
+<p>Display results as json string. Output should be similar (but may not be
+exactly the same) as the contents from the <code>results</code> field when accessing the
+Netbox API directly.</p>
+</li>
+</ul>
+<h3 id="-view-model">---view-model</h3>
+<p>Override the default view model for the given object types with one defined by
+a <a href="../../extend/views/">User Custom View</a> or extention, by specifying it's Class
+name.</p>
+<div class="highlight"><pre><span></span><code>nbcli filter device rack:1.1 --view-model MyDevicesView
+</code></pre></div>
+<h3 id="-cols">--cols</h3>
+<p>Specify object attributes to display in table view.</p>
+<div class="highlight"><pre><span></span><code>$ nbcli filter device tenant:ENCOM --cols name rack position device_type
+name         rack  position  device_type
+chassis-1    1.2   1         A-2U-C
+compute-1    1.2   -         A-BL-S
+compute-2    1.2   -         A-BL-S
+compute-3    1.2   -         A-BL-S
+compute-4    1.2   -         A-BL-S
+web-1        1.1   2         A-1U-S
+web-2        1.1   3         A-1U-S
+web-3        1.1   4         A-1U-S
+web-proxy-1  1.1   1         A-1U-S
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Looking at the json view will give you some insite on what attribues are
+available for a given object type.
+<div class="highlight"><pre><span></span><code>$ nbcli filter device compute-1 --view json | jq
+</code></pre></div>
+or
+<div class="highlight"><pre><span></span><code>$ nbcli filter device compute-1 --view json | python3 -m json.tool
+</code></pre></div></p>
+</div>
+<p>If the attribute is an instance of another object type, you can <code>drill into</code>
+that object to grab it's attributes</p>
+<div class="highlight"><pre><span></span><code>$ nbcli filter device tenant:ENCOM --cols name rack position parent_device parent_device.position parent_device.device_bay
+name         rack  position  parent_device  parent_device.position  parent_device.device_bay
+chassis-1    1.2   1         -              -                       -
+compute-1    1.2   -         chassis-1      1                       1
+compute-2    1.2   -         chassis-1      1                       2
+compute-3    1.2   -         chassis-1      1                       3
+compute-4    1.2   -         chassis-1      1                       4
+web-1        1.1   2         -              -                       -
+web-2        1.1   3         -              -                       -
+web-3        1.1   4         -              -                       -
+web-proxy-1  1.1   1         -              -                       -
+</code></pre></div>
+<p><code>--cols</code> should fail gracefully, so if the attribute does not exist, or is
+null, or and empty string the value will be displayed as an <code>-</code></p>
+<div class="highlight"><pre><span></span><code>$ nbcli filter device tenant:ENCOM --cols name bad_attr bad_attr.child_attr
+name         bad_attr  bad_attr.child_attr
+chassis-1    -         -
+compute-1    -         -
+compute-2    -         -
+compute-3    -         -
+compute-4    -         -
+web-1        -         -
+web-2        -         -
+web-3        -         -
+web-proxy-1  -         -
+</code></pre></div>
+<h3 id="-nh-no-header">--nh, --no-header</h3>
+<p>Allows you to remove the header row in the table view.
+(Useful for when piping to another shell command.)</p>
                 
               
               
