@@ -527,15 +527,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#-view" class="md-nav__link">
-    --view
+  <a href="#-json" class="md-nav__link">
+    --json
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#-view-model" class="md-nav__link">
-    ---view-model
+  <a href="#-detail" class="md-nav__link">
+    --detail
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-view" class="md-nav__link">
+    ---view
   </a>
   
 </li>
@@ -772,8 +779,10 @@
 
 <h1 id="nbcli-filter">nbcli filter</h1>
 <div class="highlight"><pre><span></span><code>$ nbcli filter -h
-usage: nbcli filter [-h] [-v] [-q] [--view {table,detail,json}] [--view-model VIEW_MODEL] [--cols [COLS [COLS ...]]] [--nh]
-                    [-c | --all | -D | --ud [UD [UD ...]]] [--de [DE [DE ...]]] [--pre PRE]
+usage: nbcli filter [-h] [-v] [-q] [--json | --detail] [--view VIEW]
+                    [--cols [COLS [COLS ...]]] [--nh] [--all]
+                    [-c | -D | --ud [UD [UD ...]]] [--de [DE [DE ...]]]
+                    [--pre PRE]
                     model [args [args ...]]
 
 Filter Netbox objects by searchterm and object properties.
@@ -789,15 +798,14 @@ optional arguments:
   -h, --help            show this help message and exit
   -v, --verbose         Show more logging messages
   -q, --quiet           Show fewer logging messages
-  --view {table,detail,json}
-                        Output view.
-  --view-model VIEW_MODEL
-                        View model to use
+  --json                Display results as json string.
+  --detail              Display more detailed info for results.
+  --view VIEW           View model to use
   --cols [COLS [COLS ...]]
                         Custom columns for table output.
   --nh, --no-header     Disable header row in results
-  -c, --count           Return the count of objects in filter.
   --all                 List all results.
+  -c, --count           Return the count of objects in filter.
   -D, --delete          Delete Object(s) returned by filter. [WIP]
   --ud [UD [UD ...]], --update [UD [UD ...]]
                         Update object(s) returned by filter with given kwargs. [WIP]
@@ -948,37 +956,24 @@ objects can be access with the <code>--de</code> flag.</p>
 <h2 id="controlling-output">Controlling output</h2>
 <p>The following optional arguments can change how the results of the filter
 command are displayed.</p>
-<div class="highlight"><pre><span></span><code>  --view {table,detail,json}
-                        Output view.
-  --view-model VIEW_MODEL
-                        View model to use
+<div class="highlight"><pre><span></span><code>  --json                Display results as json string.
+  --detail              Display more detailed info for results.
+  --view VIEW           View model to use
   --cols [COLS [COLS ...]]
                         Custom columns for table output.
   --nh, --no-header     Disable header row in results
 </code></pre></div>
-<h3 id="-view">--view</h3>
-<ul>
-<li>
-<p>table  </p>
-<p>Displays results in a tabular format. (default)</p>
-</li>
-<li>
-<p>detail  </p>
-<p>Display more detailed info for results.
-(Poorly implemented, will likely be removed.)</p>
-</li>
-<li>
-<p>json  </p>
+<h3 id="-json">--json</h3>
 <p>Display results as json string. Output should be similar (but may not be
 exactly the same) as the contents from the <code>results</code> field when accessing the
 Netbox API directly.</p>
-</li>
-</ul>
-<h3 id="-view-model">---view-model</h3>
+<h3 id="-detail">--detail</h3>
+<p>Display more detailed info for results.</p>
+<h3 id="-view">---view</h3>
 <p>Override the default view model for the given object types with one defined by
 a <a href="../../extend/views/">User Custom View</a> or extention, by specifying it's Class
 name.</p>
-<div class="highlight"><pre><span></span><code>nbcli filter device rack:1.1 --view-model MyDevicesView
+<div class="highlight"><pre><span></span><code>nbcli filter device rack:1.1 --view MyDevicesView
 </code></pre></div>
 <h3 id="-cols">--cols</h3>
 <p>Specify object attributes to display in table view.</p>
@@ -998,10 +993,10 @@ web-proxy-1  1.1   1         A-1U-S
 <p class="admonition-title">Tip</p>
 <p>Looking at the json view will give you some insite on what attribues are
 available for a given object type.
-<div class="highlight"><pre><span></span><code>$ nbcli filter device compute-1 --view json | jq
+<div class="highlight"><pre><span></span><code>$ nbcli filter device compute-1 --json | jq
 </code></pre></div>
 or
-<div class="highlight"><pre><span></span><code>$ nbcli filter device compute-1 --view json | python3 -m json.tool
+<div class="highlight"><pre><span></span><code>$ nbcli filter device compute-1 --json | python3 -m json.tool
 </code></pre></div></p>
 </div>
 <p>If the attribute is an instance of another object type, you can <code>drill into</code>
