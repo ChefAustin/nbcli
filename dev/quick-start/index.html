@@ -382,8 +382,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#models" class="md-nav__link">
-    Models
+  <a href="#info" class="md-nav__link">
+    Info
   </a>
   
 </li>
@@ -472,8 +472,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/models/" class="md-nav__link">
-        models
+      <a href="../commands/info/" class="md-nav__link">
+        info
       </a>
     </li>
   
@@ -729,9 +729,16 @@ Edit pynetbox &#39;url&#39; and &#39;token&#39; entries in user_config.yml:
 <div class="highlight"><pre><span></span><code><span class="nt">requests</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">verify</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
 </code></pre></div>
-<h2 id="models">Models</h2>
+<h2 id="info">Info</h2>
+<p>List version info</p>
+<div class="highlight"><pre><span></span><code>$ nbcli info
+
+nbcli version: 0.8.0.dev1
+NetBox version: 2.11
+pynetbox version: 6.6.2
+</code></pre></div>
 <p>List information on supported Netbox object types</p>
-<div class="highlight"><pre><span></span><code>$ nbcli models
+<div class="highlight"><pre><span></span><code>$ nbcli info --models
 Model                         Lookup   Endpoint
 tenant_group                  name     tenancy/tenant-groups
 tenant                        name     tenancy/tenants
@@ -740,23 +747,9 @@ site                          name     dcim/sites
 location                      name     dcim/locations
 rack_role                     name     dcim/rack-roles
 rack                          name     dcim/racks
-rack_reservation              name     dcim/rack-reservations
-manufacturer                  name     dcim/manufacturers
-device_type                   model    dcim/device-types
-console_port_template         name     dcim/console-port-templates
-console_server_port_template  name     dcim/console-server-port-templates
-power_port_template           name     dcim/power-port-templates
-power_outlet_template         name     dcim/power-outlet-templates
-interface_template            name     dcim/interface-templates
-front_port_template           name     dcim/front-port-templates
-rear_port_template            name     dcim/rear-port-templates
-device_bay_template           name     dcim/device-bay-templates
-device_role                   name     dcim/device-roles
-platform                      name     dcim/platforms
-device                        name     dcim/devices
 ...
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>$ nbcli models device
+<div class="highlight"><pre><span></span><code>$ nbcli info --models device
 
 Model: device
 Lookup: name

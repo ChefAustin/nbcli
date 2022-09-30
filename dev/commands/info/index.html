@@ -15,7 +15,7 @@
     
     
       
-        <title>models - nbcli: NetBox Command-Line Client</title>
+        <title>info - nbcli: NetBox Command-Line Client</title>
       
     
     
@@ -63,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#nbcli-info" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -108,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              models
+              info
             
           </span>
         </div>
@@ -396,9 +401,11 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        models
+        info
       </a>
       
     </li>
@@ -636,9 +643,35 @@
                   
 
 
-  <h1>models</h1>
+<h1 id="nbcli-info">nbcli info</h1>
+<div class="highlight"><pre><span></span><code>$ nbcli info --help
+usage: nbcli info [-h] [-v] [-q] [--detailed] [--models [MODELS]]
 
+View Information about nbcli instance.
 
+optional arguments:
+  -h, --help         show this help message and exit
+  -v, --verbose      Show more logging messages
+  -q, --quiet        Show fewer logging messages
+  --detailed         Show more detailed info.
+  --models [MODELS]  Display detailed info on given model.
+
+View Information about nblci instance.
+
+Example Usage:
+
+- Show version info
+  $ nbcli info
+
+- Show more detailed info
+  $ nbcli info --detailed
+
+- List all supported models
+  $ nbcli info --models
+
+- Show information of device model
+  $ nbcli info --models device
+</code></pre></div>
 
 
 
