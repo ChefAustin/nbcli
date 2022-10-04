@@ -693,13 +693,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#create-sample-objects-for-netbox-docker" class="md-nav__link">
-    Create sample objects for netbox-docker
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#start-test-netbox-service" class="md-nav__link">
     Start test Netbox service
   </a>
@@ -784,24 +777,16 @@ Instructions require python &gt;= 3.6, git, and docker-compose to be installed.<
 <h3 id="clone-netbox-docker-repo">Clone netbox-docker repo</h3>
 <p>and copy needed files into netbox-docker directory</p>
 <div class="highlight"><pre><span></span><code>git clone https://github.com/netbox-community/netbox-docker.git <span class="o">&amp;&amp;</span> <span class="se">\</span>
-    cp -r tests/dev-env-files/* netbox-docker/ <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    cp -r tests/docker-compose.override.yml netbox-docker/ <span class="o">&amp;&amp;</span> <span class="se">\</span>
     <span class="nb">cd</span> netbox-docker
 </code></pre></div>
-<h3 id="create-sample-objects-for-netbox-docker">Create sample objects for netbox-docker</h3>
-<div class="admonition info">
-<p class="admonition-title">Optional</p>
-</div>
-<div class="highlight"><pre><span></span><code>python3 create_initializers.py
-</code></pre></div>
 <h3 id="start-test-netbox-service">Start test Netbox service</h3>
-<p>and wait for service to be ready</p>
 <div class="admonition info">
 <p class="admonition-title">service usually take ~1 min to come up</p>
-<p><code>wait_for_service.py</code> will time out after 5 min</p>
 </div>
 <div class="highlight"><pre><span></span><code>docker-compose pull <span class="o">&amp;&amp;</span> <span class="se">\</span>
     docker-compose up -d <span class="o">&amp;&amp;</span> <span class="se">\</span>
-    python3 wait_for_service.py
+    nbcli info --status <span class="m">180</span>
 </code></pre></div>
 <div class="admonition done">
 <p class="admonition-title">The test Netbox instance should now be ready for testing!</p>
